@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Alias 설정 -->
+	<typeAliases>
+		<typeAlias alias="user" type="com.haeyo.biz.user.UserVO"/>
+		<typeAlias alias="profession" type="com.haeyo.biz.profession.ProfessionVO"/>
+		<typeAlias alias="proList" type="com.haeyo.biz.profession.ProfessionListVO"/>
+		<typeAlias alias="review" type="com.haeyo.biz.profession.ReviewsVO"/>
+		<typeAlias alias="moving" type="com.haeyo.biz.profession.ProfessionsMovingVO"/>
+		<typeAlias alias="cleaning" type="com.haeyo.biz.profession.ProfessionsCleaningVO"/>
+		<typeAlias alias="repair" type="com.haeyo.biz.profession.ProfessionsRepairVO"/>
+		<typeAlias alias="review" type="com.haeyo.biz.profession.ReviewsVO"/>
+		<typeAlias alias="prosubCate" type="com.haeyo.biz.profession.ProfessionSubVO"/>
+		<!-- board -->
+		<typeAlias alias="togetherBoardVO" type="com.haeyo.biz.board.impl.TogetherBoardVO"/>
+		<typeAlias alias="singleBoardVO" type="com.haeyo.biz.board.impl.SingleBoardVO"/>
+		<typeAlias alias="boardVO" type="com.haeyo.biz.board.BoardVO"/>
+		<typeAlias alias="togetherBoardListVO" type="com.haeyo.biz.board.impl.TogetherBoardListVO"/>
+		<typeAlias alias="singleBoardListVO" type="com.haeyo.biz.board.impl.SingleBoardListVO"/>
+		<typeAlias alias="togetherReplyVO" type="com.haeyo.biz.board.impl.TogetherReplyVO"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappings/user-mapping.xml"/>
+		<mapper resource="mappings/profession-mapping.xml"/>
+		<mapper resource="mappings/professionList-mapping.xml"/>
+		
+		<mapper resource="mappings/singleBoard-mapping.xml"/>
+		<mapper resource="mappings/togetherBoard-mapping.xml"/>
+		<mapper resource="mappings/proSubcategory-mapping.xml"/>
+	</mappers>
+</configuration>

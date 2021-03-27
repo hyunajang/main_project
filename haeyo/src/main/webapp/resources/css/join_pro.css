@@ -1,0 +1,304 @@
+@import
+url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import 
+url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+body,div,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,table,tr,th,td,form,fieldset,legend,input,label,textarea,select,button{margin:0; padding:0;}
+body,h1,h2,h3,h4,h5,h6 {font-size:12px; font-family: 'Noto Sans KR', sans-serif; color:#333;}
+a {text-decoration:none; color:#333;}
+img, fieldset {border:none; vertical-align: middle;}
+ul,ol,li {list-style: none;}
+strong,em,address {font-weight:normal; font-style:normal;}
+table {border-collapse:collapse;}
+
+.clearfix:after { /*날아갈경우 높이 지정*/
+    content:"";
+    display:block;
+    clear:both;
+}
+#join_pro_title {
+    text-align: center;
+    height: 70px;
+    line-height: 70px;
+    margin-top:30px;
+    margin-bottom: 20px;
+}
+#join_pro_title > h1 {
+    display: inline-block;
+    font-size: 2em;
+    margin-right: 10px;
+    font-weight: 600;
+}
+#join_pro-body {
+    width: 550px;
+    height: 1000px;
+    font-size: 16px;
+    float: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 20px 450px 20px 500px;
+}
+#join_pro-button .btn-secondary {
+    border-radius: 30px;
+    border: 1px solid #05C3A7;
+    background-color: #05C3A7;
+    color: #fff;
+    font-size: 16px;
+    width: 450px;
+    height: 40px;
+    cursor: pointer;
+    outline: 0;
+    margin-top: 50px;
+}
+#join_pro-button .btn-secondary:hover {
+    border: 1px solid #05C3A7;
+    background-color: #fff;
+    color: #05C3A7;
+}
+.pass-join {
+    height: 50px;
+    margin: 0 auto;
+    font-size: 12px;
+    font-weight: 100;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size:12px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    margin-bottom: 10px;
+}
+.pass-join a:hover {
+    color: #199683;
+}
+.sns-info > p {
+    font-size:13px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    color: rgb(105, 105, 105);
+}
+.form-group {
+    margin: 30px auto;
+    width: 450px;
+}
+.pass-join > ul {
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+}
+.pass-join > ul > li {
+    display: inline-block;
+    float: right;
+    margin: 20px 0 0 20px;  
+}
+.pass-join > ul > li a {
+    font-size: 1.3em;
+}
+.pass-join > ul > li:last-child {
+    margin-left:0;
+}
+.form-group .form-control{
+    padding: 15px;
+    width: 450px;
+    height: 45px;
+}
+.form-group > label{
+    margin-bottom: 9px;
+    font-weight: 400;
+}
+.box {
+    margin: 0 auto;
+    text-align: center;
+}
+.sns-button > a > img {
+    margin-top:20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 40px;
+}
+.form-group > .uAgreecheck {
+    font-size:14px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    color: rgb(105, 105, 105);
+    font-weight: 100;
+    /* display: flex; */
+    width: 400px;
+    margin: 30px auto;
+    text-align: center;
+}
+.form-group > .uAgreecheck > .uAgreecheck-label > p {
+    margin-left: 7px;
+    margin-right: 10px;
+}
+.form-group > .uAgreecheck > .uAgreecheck-label > p > span {
+    font-size:14px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    color: #05C3A7;
+}
+/* .form-group > .uAgreecheck > .uAgreecheck-label > a {
+    font-size:12px; 
+} */
+.uPic {
+    background-color: #05C3A7;
+}
+#profile_d {
+    position: relative;
+    margin: 0 auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #05c3a73b, #05C3A7);
+    margin-bottom: 30px;
+    /* border: solid #05c3a7a4 0.3px; */
+}
+
+#profile_d > a {
+    width: 50px;
+    height:50px;
+    border-radius:50%;
+    background-color: #f1f1f1;
+    font-size: 1.6em;
+    color: #05C3A7;
+    position: absolute;
+    right:0;
+    bottom: -1px;
+    text-align: center;
+    line-height: 50px;
+}
+#btn-groupbtn-group-toggle{
+    font-size:14px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    /* margin: 7px 48px; */
+    width: 50px;
+    border-radius: 3px;
+    border: 1px solid #05C3A7;
+    background-color: #05C3A7;
+    color: #fff;
+    height: 30px;
+    /* cursor: pointer; */
+    /* outline: 0; */
+    float: left; 
+}
+.form-group > #uIntroduce {
+    width: 450px;
+    height:100px;
+}
+.form-group > #address-group {
+    display: inline-block;
+    width: 450px
+}
+.form-group > #address-group > #uaddress {
+    float: left;
+    margin-top:9px;
+    width: 350px;
+    margin-right: 10px
+}
+.form-group > #address-group > .button_adrr {
+    font-size:14px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    width: 90px;
+    border-radius: 3px;
+    border: 1px solid #05C3A7;
+    background-color: #05C3A7;
+    color: #fff;
+    height: 45px;
+    margin-top:10px;
+    float:left;
+}
+.form-group > #address-group > label {
+    display: block;
+    font-weight: 400;
+}
+.form-group > #file-group {
+    display: inline-block;
+    width: 450px
+}
+.form-group > #file-group > label {
+    display: block;
+    font-weight: 400;
+}
+#fileUpload {
+    font-size:14px; 
+    font-family: 'Noto Sans KR', sans-serif; 
+    width: 90px;
+    border-radius: 3px;
+    border: 1px solid #05C3A7;
+    background-color: #05C3A7;
+    color: #fff;
+    height: 45px;
+    margin-top:9px;
+    float:left;
+    line-height: 45px;
+    text-align: center;
+    font-weight: 400;
+}
+#exampleInputFile {
+    display: none;
+}
+/* ---------------------------- */
+.option-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  top: 8.33333px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  /* transition: all 0.15s ease-out 0s; */
+  background: #cbd1d8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 0.5rem;
+  outline: none;
+  position: relative;
+  z-index: 1000;
+  margin-right: 30px;
+}
+.option-input:hover {
+  background: #9faab7;
+}
+.option-input:checked {
+    background: #05C3A7;
+}
+.option-input:checked::before {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  content: '✔';
+  display: inline-block;
+  font-size: 26.66667px;
+  text-align: center;
+  line-height: 30px;
+  vertical-align: middle;
+  /* margin-top: 10px; */
+}
+.option-input:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: #05C3A7;
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+  outline: none;
+}
+.option-input.radio {
+    border-radius: 50%;
+}
+.option-input.radio::after {
+    border-radius: 50%;
+}
+.form-group > #Gender > label {
+    font-weight: 400;
+    margin-bottom: -2px;
+    margin-right: 20px;
+    height: 39px;
+    vertical-align: middle;
+    margin-left: 6px;
+    /* position: relative; */
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="professionDAO">
+	<resultMap id="professionResult" type="profession">
+		<id property="pNo" column="p_no"/>
+		<result property="uNo" column="u_no"/>
+		<result property="pAddress" column="p_address"/>
+		<result property="pLocX" column="p_loc_x"/>
+		<result property="pLocY" column="p_loc_y"/>
+		<result property="certification" column="certification"/>
+		<result property="pPic" column="p_pic"/>
+		<result property="pAgreeCheck" column="p_agreecheck"/>
+		<result property="pIntroduce" column="p_introduce"/>
+		<result property="pCategory" column="p_category"/>
+		
+
+	</resultMap>
+	
+	<!-- review -->
+	<resultMap id="professionReview" type="review">
+		<id property="reviewNo" column="p_no"/>
+	</resultMap>
+	
+</mapper>

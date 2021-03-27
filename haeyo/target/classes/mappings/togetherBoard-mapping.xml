@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="togetherBoardDAO">
+	<!-- 함께해요 sql문 -->
+	<resultMap id="togetherBoardResult" type="togetherBoardVO">
+		<result property="tNo" column="t_no"/>
+		<result property="tHeader" column="t_header"/>
+		<result property="tTitle" column="t_title"/>
+		<result property="tContent" column="t_content"/>
+		<result property="tJoinDate" column="t_join_date"/>
+		<result property="tPic" column="t_pic"/>
+		<result property="tAddress" column="t_address"/>
+		<result property="tBookmark" column="t_bookmark"/>
+		<result property="tCredate" column="t_credate"/>
+		<result property="tJoinMax" column="t_join_max"/>
+		<result property="tJoinNow" column="t_join_now"/>
+		<result property="tHits" column="t_hits"/>
+		<association property="userVO" resultMap="tBoardUserResult"/>
+		<!-- 
+			<collection property="tReplyList" column="t_no" resultMap="ReplyResult" javaType="java.util.ArrayList" ofType="togetherReplyVO" select="selectReply"/>
+		-->
+	</resultMap>
+	<resultMap id="tBoardUserResult" type="user">
+		<result property="uNick" column="u_nick"/>
+		<result property="uPic" column="u_pic"/>
+		<result property="uNo" column="u_no"/>
+	</resultMap>
+	
+	<select id="selectTogetherBoard" resultMap="togetherBoardResult">
+		SELECT t_no, u_no, u_pic, u_nick, t_header, t_title, t_content, t_join_date, t_pic, t_address, t_bookmark, t_credate, t_join_max, t_join_now, t_hits
+		FROM together_board, users
+		WHERE h_no = u_no AND t_no = #{tNo}
+	</select>
+	
+	<resultMap id="togetherBoardListResult" type="togetherBoardVO">
+		<result property="tNo" column="t_no"/>
+		<result property="tHeader" column="t_header"/>
+		<result property="tTitle" column="t_title"/>
+		<result property="tPic" column="t_pic"/>
+		<result property="tAddress" column="t_address"/>
+		<result property="tBookmark" column="t_bookmark"/>
+		<result property="tHits" column="t_hits"/>
+	</resultMap>
+	
+	<select id="selectTogetherBoardList" resultMap="togetherBoardListResult">
+		SELECT t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits FROM together_board 
+		WHERE h_no = #{uNo} 
+		<!-- 
+		<if test="#{tHeader} == null">
+			limit 0,8
+		</if>
+		<if test="#{tHeader} == 함께먹어요">
+			AND t_header = #{tHeader} limit 0,9
+		</if>
+		<if test="#{tHeader} == 함께출근해요">
+			AND t_header = #{tHeader} limit 0,9
+		</if>
+		<if test="#{tHeader} == 함께나눠요">
+			AND t_header = #{tHeader} limit 0,9
+		</if>
+		 -->
+	</select>
+
+	<insert id="insertTogetherBoard">
+		INSERT INTO together_board(h_no,t_header,t_title,t_address,t_join_date,
+			t_join_max,t_content,t_pic,t_credate)
+		VALUES(#{hNo},#{tHeader},#{tTitle},#{tAddress},#{tJoinDate},
+			#{tJoinMax},#{tContent},#{tPic},now())
+	</insert>
+	
+	<update id="updateTogetherBoard">
+		UPDATE together_board SET 
+			t_header = #{tHeader},
+			t_title = #{tTitle},
+			t_address = #{tAddress},
+			t_content = #{tContent},
+			t_pic = #{tPic},
+			t_join_date = #{tJoinDate},
+			t_join_max = #{tJoinMax},
+			t_credate = now()
+		WHERE t_no = #{tNo}
+	</update>
+	
+	<delete id="deleteTogetherBoard" >
+		DELETE FROM together_board WHERE t_no = #{tNo}
+	</delete>
+	
+	<!-- 댓글전체 가져오기 -->
+	<resultMap id="ReplyResult" type="togetherReplyVO">
+		<result property="trNo" column="tr_no"/>
+		<result property="uNo" column="u_no"/>
+		<result property="tNo" column="t_no"/>
+		<result property="trContent" column="tr_content"/>
+		<result property="trCredate" column="tr_credate"/>
+		<association property="userVO" resultMap="ReplyUserResult"/>
+	</resultMap>
+	<resultMap id="ReplyUserResult" type="user">
+		<result property="uPic" column="u_pic"/>
+		<result property="uNick" column="u_nick"/>
+	</resultMap>
+	
+	<select id="selectReply" resultMap="ReplyResult">
+		SELECT u_pic, u_nick, tr_no, u_no, t_no, tr_content, tr_credate
+		FROM together_reply JOIN users USING(u_no)
+		WHERE t_no = #{tNo}
+	</select>
+	
+	<!-- 추가된 댓글만 가져오기  -->
+	<resultMap id="ReplyOneResult" type="togetherReplyVO">
+		<result property="trNo" column="tr_no"/>
+		<result property="uNo" column="u_no"/>
+		<result property="tNo" column="t_no"/>
+		<result property="trContent" column="tr_content"/>
+		<result property="trCredate" column="tr_credate"/>
+		<association property="userVO" resultMap="ReplyUserOneResult"/>
+	</resultMap>
+	<resultMap id="ReplyUserOneResult" type="user">
+		<result property="uPic" column="u_pic"/>
+		<result property="uNick" column="u_nick"/>
+	</resultMap>
+	
+	<select id="selectReplyOne" resultMap="ReplyOneResult">
+		SELECT u_pic, u_nick, tr_no, u_no, t_no, tr_content, tr_credate
+		FROM together_reply JOIN users USING(u_no)
+		WHERE tr_no = #{trNo}
+	</select>
+
+	<insert id="insertReply" parameterType="togetherReplyVO">
+		INSERT INTO together_reply(u_no, t_no, tr_content, tr_credate) 
+		VALUES(#{uNo},#{tNo},#{trContent},NOW())
+		<selectKey keyProperty="trNo" resultType="int" order="AFTER">
+       		 SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+	
+	<update id="updateReply">
+		UPDATE together_reply SET tr_content = #{trContent}, tr_credate = NOW()
+		WHERE tr_no = #{trNo}
+	</update>
+	
+	<delete id="deleteReply">
+		DELETE FROM together_reply WHERE tr_no = #{trNo}
+	</delete>
+	
+	<!-- 모임참여 부분-->
+	<update id="updateJoinNow">
+		UPDATE together_board SET t_join_now = t_join_now+1 WHERE t_no = #{tNo}
+	</update>
+	
+	<insert id="insertJoinNow">
+		INSERT INTO together_members VALUES(#{tNo},#{gNo})
+	</insert>
+
+	<resultMap id="selectJoinNowResult" type="togetherBoardVO">
+		<result property="tJoinNow" column="t_join_now"/>
+		<result property="tJoinMax" column="t_join_max"/>
+	</resultMap>
+
+	<select id="selectJoinNow" resultMap="selectJoinNowResult">
+		SELECT t_join_now, t_join_max FROM together_board WHERE t_no = #{tNo}
+	</select>
+	
+	<!-- 북마크에 대한 부분 -->
+	<update id="updateBookmark">
+		UPDATE together_board SET t_bookmark = #{tBookmark} 
+		WHERE t_no = #{tNo}
+	</update>
+	
+	<insert id="insertBookmark" parameterType="map">
+		INSERT INTO together_bookmarks VALUES(#{uNo},#{togetherBoardVO.tNo})
+	</insert>
+	
+	<delete id="deleteBookmark">
+		DELETE FROM together_bookmarks WHERE u_no= #{uNo}
+	</delete>
+</mapper>
