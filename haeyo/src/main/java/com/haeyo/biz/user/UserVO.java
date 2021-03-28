@@ -1,5 +1,7 @@
 package com.haeyo.biz.user;
 
+import java.sql.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserVO {
@@ -14,7 +16,7 @@ public class UserVO {
 	private int uAgreecheck;
 	private String uPic;
 	private String uNick;
-	
+
 	private MultipartFile uploadFile;
 
 	public int getuNo() {
@@ -113,6 +115,7 @@ public class UserVO {
 		this.uploadFile = uploadFile;
 	}
 
+
 	@Override
 	public String toString() {
 		return "UserVO [uNo=" + uNo + ", uName=" + uName + ", uEmail=" + uEmail + ", uPwd=" + uPwd + ", uPhone="
@@ -120,5 +123,4 @@ public class UserVO {
 				+ uAgreecheck + ", uPic=" + uPic + ", uNick=" + uNick + ", uploadFile=" + uploadFile + "]";
 	}
 
-	
 }

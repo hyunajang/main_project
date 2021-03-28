@@ -93,7 +93,7 @@
 			<span><img src="resources/image/logo2.png"></span>
 		</div>
 		<form action="insertUser.do" name=form method="post"
-         onsubmit="return join_check();">
+			onsubmit="return join_check();">
 			<!-- <form action="insertUser.do" method="post" enctype="text/plain" > -->
 			<fieldset>
 				<div class="form-group">
@@ -113,6 +113,20 @@
 					<label for="uNick">별 명</label> <input type="text" name="uNick"
 						class="form-control" id="uNick" placeholder="Zn">
 				</div>
+				<!-- 이메일인증 -->
+		<div class="form-group">
+			<label for="uEmail">이메일 인증</label> 
+			<input type="text" name="uEmail" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-inline mb-3">
+			<div class="mail_check_input_box" id="mail_check_input_box_false">
+				<input type="text" class="mail_check_input form-control col-8" disabled="disabled">
+				<button id="mail_check_button" class="btn btn-outline-primary btn-sm">인증번호 전송</button>
+			</div>
+		</div>
+		<!-- 인증번호 확인 -->
+		<div class="alert alert-success" id="alert-success-email">인증번호가 일치합니다.</div>
+		<div class="alert alert-danger" id="alert-danger-email">인증번호가 일치하지 않습니다.</div>
 				<div class="form-group">
 					<label for="uEmail">이메일</label> <input type="text" name="uEmail"
 						class="form-control" id="uEmail" placeholder="email@bit.com">

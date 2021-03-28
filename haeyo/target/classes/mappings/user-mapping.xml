@@ -21,11 +21,11 @@
 	</select>
 	<!-- Login End -->
 
-	<!-- INSERT Start -->
+	<!-- INSERT Start-->
 	<insert id="insertUser">		
 		INSERT INTO users(u_name, u_email, u_pwd, u_phone, u_address, u_lat, u_lon, u_agreecheck, u_pic, u_nick)
 		VALUES (#{uName},#{uEmail},#{uPwd},#{uPhone},#{uAddress},#{uLat},#{uLon},#{uAgreecheck},#{uPic},#{uNick})
 	</insert>
 	<!-- INSERT End -->
-	
+
 </mapper>
