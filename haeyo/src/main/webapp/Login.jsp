@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.haeyo.biz.user.UserVO"%>
+<%@ page import="java.net.URLEncoder"%>
+<%@ page import="java.security.SecureRandom"%>
+<%@ page import="java.math.BigInteger"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +20,9 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="resources/css/login.css" rel="stylesheet">
-<link href="resources/css/common.css" rel="stylesheet">
+<link href="resources/css/header.css" rel="stylesheet">
 <script defer src="resources/js/login.js"></script>
+
 </head>
 
 <body>
@@ -87,8 +91,9 @@
 			</ul>
 		</nav>
 	</header> <!------- headerEND -------> <!------- loginStart ------->
-	<form action="login.do" name=form method="post" onsubmit="return login_check();">
-	<!-- <form action="insertUser.do" name=form method="post"
+	<form action="login.do" name=form method="post"
+		onsubmit="return login_check();">
+		<!-- <form action="insertUser.do" name=form method="post"
          onsubmit="return join_check();"> -->
 		<div id="login-body">
 			<div id="login_title">
@@ -144,8 +149,23 @@
 								})
 							}</script>
 						<!-- KAKAO Login End -->
-						<a href="#"><img src="resources/image/naver.png"
-							alt="naver-login"></a>
+						<!-- Naver Login Start -->
+						<%
+						String clientId = "tjFd03HRfNwCYRcx8l_F";//애플리케이션 클라이언트 아이디값";
+						String redirectURI = URLEncoder.encode("http://localhost:9999/project/index.jsp", "UTF-8");
+						SecureRandom random = new SecureRandom();
+						String state = new BigInteger(130, random).toString();
+						String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+						apiURL += "&client_id=" + clientId;
+						apiURL += "&redirect_uri=" + redirectURI;
+						apiURL += "&state=" + state;
+						session.setAttribute("state", state);
+						%>
+						<a href="<%=apiURL%>"><img
+							src="resources/image/naver.png" /></a>
+						<!-- 토큰삭제 : https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=tjFd03HRfNwCYRcx8l_F&client_secret=W8CiIlnkbB&access_token=sMM761xU5GSC846U0Q&state=639377487032869747063967426466487713134&service_provider=NAVER -->
+						<!-- Naver Login End -->
+
 					</div>
 				</div>
 			</fieldset>
