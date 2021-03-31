@@ -20,10 +20,12 @@ public class UserServiceImpl {
 	@Autowired
 	HttpSession session;
 	
+	/* 회원가입 */
 	public void insertUser(UserVO vo) {
 		userDAO.insertUser(vo);
 	}
 
+	/* 로그인 */
 	public UserVO getUser(UserVO vo) {
 		logger.info("UserVO"+vo);
 		return userDAO.getUser(vo);

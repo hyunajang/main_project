@@ -55,30 +55,42 @@
 				<li><a href="t_getBoardMain.do">같이해요</a></li>
 				<li><a href="#">혼자해요</a></li>
 				<li><a href="checklist.jsp">전문가 신청</a></li>
-				<li><a href="Login.jsp">로그인</a></li>
 				<li class="btn-group">
 					<ul class="dropdown-toggle bell" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
 						<i class="fas fa-bell"></i>
 					</ul>
-					<div class="dropdown-menu dropdown-menu-right alarm1">
-						<p>알림</p>
-						<div id="alarmTxt">회원님이 결제를 완료하셨습니다.</div>
-						<span>23분전</span>
-					</div>
+				<li>
+					<!-- 로그인을 하지 않은 상태  --> <c:if test="${user == null}">
+						<a href="Login.jsp">로그인</a>
+					</c:if> <!-- 로그인한 상태  --> <c:if test="${user != null}">
+						<a href="logout.do">로그아웃</a>
+					</c:if>
+				</li>
+
+				<div class="dropdown-menu dropdown-menu-right alarm1">
+					<p>알림</p>
+					<div id="alarmTxt">회원님이 결제를 완료하셨습니다.</div>
+					<span>23분전</span>
+				</div>
 				</li>
 				<li class="btn-group">
-					<div class="dropdown-toggle" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">${user.uNick}님</div>
-					<div class="dropdown-menu dropdown-menu-right" id="profile">
-						<div id="profiteTxt">
-							<span>반갑습니다! </span>${user.uNick}님</div>
-						<ul class="profileMenu">
-							<li><i class="fas fa-user menuico"></i>마이페이지</li>
-							<li><i class="fas fa-sign-out-alt menuico"></i>로그아웃</li>
-							<li><i class="fas fa-exchange-alt menuico"></i>전문가로 전환</li>
-						</ul>
-					</div>
+					<c:if test="${user != null}">
+						<div class="dropdown-toggle" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">${user.uNick}님</div>
+						<div class="dropdown-menu dropdown-menu-right" id="profile">
+							<div id="profiteTxt">
+								<span>반갑습니다! </span>${user.uNick}님</div>
+							<ul class="profileMenu">
+								<li><i class="fas fa-user menuico"></i>마이페이지</li>
+								<li><i class="fas fa-sign-out-alt menuico"></i>로그아웃</li>
+								<li><i class="fas fa-exchange-alt menuico"></i>전문가로 전환</li>
+							</ul>
+						</div>
+					</c:if>
+					<c:if test="${user == null}">
+					<!-- 로그인 기록 없을 시에 "님" 삭제 -->
+					</c:if>
 				</li>
 			</ul>
 		</nav>

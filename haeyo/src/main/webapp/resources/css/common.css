@@ -191,3 +191,16 @@ table {border-collapse:collapse;}
 #footer #bottomtxt .copy {
     padding-top: 30px; 
 }
+/*--------------- Logout ---------------*/
+#nav > #logo > .logout{
+    font-size: 15px;
+    font-weight: 900;
+    display: inline-block;
+    margin-top: 5px;
+    //background: #e1e5e8;
+    width: 82px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 25px;
+    color: #606267;    
+}

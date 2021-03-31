@@ -55,12 +55,19 @@
 				<li><a href="t_getBoardMain.do">같이해요</a></li>
 				<li><a href="#">혼자해요</a></li>
 				<li><a href="checklist.jsp">전문가 신청</a></li>
-				<li><a href="Login.jsp">로그인</a></li>
 				<li class="btn-group">
 					<ul class="dropdown-toggle bell" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
 						<i class="fas fa-bell"></i>
-					</ul>
+					</ul> 
+					
+					<li>
+						<!-- 로그인을 하지 않은 상태  --> 
+						<c:if test="${user == null}"><a href="Login.jsp">로그인</a></c:if> 
+						<!-- 로그인한 상태  --> 
+						<c:if test="${user != null}"><a href="/logout.do">로그아웃</a></c:if>
+					</li>
+					
 					<div class="dropdown-menu dropdown-menu-right alarm1">
 						<p>알림</p>
 						<div id="alarmTxt">회원님이 결제를 완료하셨습니다.</div>

@@ -2,7 +2,7 @@ function login_check() {
 //	const loginForm = document.loginForm;
 	const uEmail = document.getElementById("uEmail").value;
 	const uPwd = document.getElementById("uPwd").value;
-
+	
 	if (uEmail.length == 0) {
 		alert("이메일과 비밀번호를 모두 입력해주세요");
 		return false;

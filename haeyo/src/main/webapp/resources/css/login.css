@@ -118,3 +118,9 @@ legend {
     margin-right: 10px;
 	width: 40px;
 }
+/*----------- 로그인 실패 시 경고글 -----------*/
+.login_warn {
+	margin-top: 30px;
+	text-align: center;
+	color: red;
+}
