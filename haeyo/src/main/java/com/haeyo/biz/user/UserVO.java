@@ -1,7 +1,5 @@
 package com.haeyo.biz.user;
 
-import java.sql.Date;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserVO {
@@ -16,8 +14,11 @@ public class UserVO {
 	private int uAgreecheck;
 	private String uPic;
 	private String uNick;
-
+	
 	private MultipartFile uploadFile;
+	
+	//손예인
+	private String filePath;
 
 	public int getuNo() {
 		return uNo;
@@ -115,6 +116,13 @@ public class UserVO {
 		this.uploadFile = uploadFile;
 	}
 
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
 	@Override
 	public String toString() {
@@ -123,4 +131,5 @@ public class UserVO {
 				+ uAgreecheck + ", uPic=" + uPic + ", uNick=" + uNick + ", uploadFile=" + uploadFile + "]";
 	}
 
+	
 }

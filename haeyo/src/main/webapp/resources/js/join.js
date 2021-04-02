@@ -88,7 +88,7 @@ $(document).ready(function() {
 })
 
 function thumbnail(event) {
-	$("#user-thumb").change(function() {
+	$("#uPic").change(function() {
 		if (this.files && this.files[0]) {
 			var reader = new FileReader;
 			reader.onload = function(data) {

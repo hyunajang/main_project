@@ -54,7 +54,7 @@ function editReply(trNo,tNo){
 					+"<td><textarea cols='40' rows='3' id='updateTrContent'"
 					+"name='updateTrContent'>"+trContent+"</textarea></td>"
 					+"<td>"+trCredate+"</td>"
-					+"<td><button class='heayo_btn' onclick='updateReply("+trNo+",\""+trContent+"\");'>등록</button></a></td>"
+					+"<td><button class='heayo_btn' onclick='updateReply("+trNo+");'>등록</button></a></td>"
 					+"<td><button class='heayo_btn' onclick='cancleReply("+trNo+","+tNo+",\""+trContent+"\");'>취소</button></a></td>";
 	$('#trNo'+trNo).html(updateReplyInput);	
 }
@@ -74,7 +74,7 @@ function cancleReply(trNo,tNo,trContent){
 	$('#trNo'+trNo).html(updateReplyInput);
 }
 
-function updateReply(trNo, trContent){
+function updateReply(trNo){
 	var trContent = $('#updateTrContent').val();
 	var param = {"trNo":trNo, "trContent":trContent}
 	console.log(param);
@@ -99,23 +99,27 @@ function updateReply(trNo, trContent){
 	});
 }
 
-function tJoin(tNo){
-	var param = {"tNo":tNo};
-	console.log(param);
-	$.ajax({
-		url:"t_joinNow.do",
-		type: "GET",
-		contentType : "application/json; charset=UTF-8",
-		data: param,
-		dataType: 'json',
-		success: function(result){
-			console.log(result);
-			joinMember = result.tJoinNow+"/"+result.tJoinMax
-			$('#joinCount').text(joinMember);
-			
-//			alert("이미 참여신청을 하셨습니다.")
-		}
-	});
+function tJoin(tNo,tJoinNow,tJoinMax){
+	console.log("tNo: "+tNo+",tJoinNow: "+tJoinNow+",tJoinMax: "+tJoinMax)
+	if(tJoinNow >= tJoinMax){
+		alert("이미 정원이 다 찼습니다.");
+	}else{
+		var param = {"tNo":tNo};
+		console.log(param);
+		$.ajax({
+			url:"t_joinNow.do",
+			type: "GET",
+			contentType : "application/json; charset=UTF-8",
+			data: param,
+			dataType: 'json',
+			success: function(result){
+				console.log(result);
+				$('#tJoinNow').text(result.tJoinNow);
+				
+//				alert("이미 참여신청을 하셨습니다.")
+			}
+		});
+	}
 }
 
 $(document).ready(function(){
@@ -127,14 +131,8 @@ $(document).ready(function(){
 });
 
 
-function tBookmark(tNo,tBookmark){
-	
-	if(tBookmark == 1){
-		tBookmark = 0
-	}else if(tBookmark == 0){
-		tBookmark = 1
-	}
-	
+function tBookmark(tNo){
+	var tBookmark = $('#tBookmark').text();
 	console.log(tNo+","+tBookmark);
 	var param = {"tNo":tNo,"tBookmark":tBookmark};
 	$.ajax({
@@ -146,6 +144,10 @@ function tBookmark(tNo,tBookmark){
 			console.log(result);
 			if(result == 1){
 				$('#tBookmark').addClass('select');
+				$('#tBookmark').text(1);
+			}else if(result == 0){
+				$('#tBookmark').removeClass('select');
+				$('#tBookmark').text(0);
 			}
 		}
 	});

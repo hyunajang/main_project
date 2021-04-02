@@ -1,19 +1,23 @@
 package com.haeyo.biz.profession.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.haeyo.biz.profession.ProfessionBookmarksVO;
 import com.haeyo.biz.profession.ProfessionListVO;
 import com.haeyo.biz.profession.ProfessionSubVO;
-import com.haeyo.biz.profession.ProfessionsMovingVO;
-import com.haeyo.biz.profession.ProfessionsRepairVO;
+import com.haeyo.biz.profession.ProfessionVO;
+import com.haeyo.biz.reservation.ReservationVO;
 
 @Repository
 public class ProfessionDAO {
+	private static final Logger logger = LoggerFactory.getLogger(ProfessionDAO.class);
+	
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
@@ -51,18 +55,31 @@ public class ProfessionDAO {
 		return (ProfessionSubVO)mybatis.selectOne("ProSubResultDAO.CleaningCate", vo);
 	}
 	
+	//전문가 select 리스트 테스트
+	public List<ProfessionListVO> getLList(ProfessionListVO vo) {
+		System.out.println("전문가 select리스트");
+		return mybatis.selectList("ProListResultDAO.getList", vo);
+	}
 	
-	//서브 카테고리테스트
-	public ProfessionSubVO RepairCateTest(Map<String, Object> param) {
-		System.out.println("수리서브카테고리");
-		return (ProfessionSubVO)mybatis.selectOne("ProSubResultDAO.RepairCate", param);
+	//북마크 인서트
+	public int insertBook(ProfessionBookmarksVO vo){
+		logger.info("ProfessionBookmarksVO : " + vo);
+		return mybatis.insert("professionDAO.insertBook", vo);
 	}
-	public ProfessionSubVO MovingCateTest(Map<String, Object> param) {
-		System.out.println("이사서브카테고리");
-		return (ProfessionSubVO)mybatis.selectOne("ProSubResultDAO.MovingCate", param);
+		
+	//북마크 삭제
+	public int deleteBook(ProfessionBookmarksVO vo) {
+		logger.info("ProfessionBookmarksVO : " + vo);
+		return mybatis.delete("professionDAO.deleteBook", vo);
 	}
-	public ProfessionSubVO CleaningCateTest(Map<String, Object> param) {
-		System.out.println("청소서브카테고리");
-		return (ProfessionSubVO)mybatis.selectOne("ProSubResultDAO.CleaningCate", param);
+	
+	//북마크 카운트
+	public ProfessionBookmarksVO selectBook(ProfessionBookmarksVO vo) {
+		logger.info("ProfessionBookmarksVO : " + vo);
+		return mybatis.selectOne("professionDAO.selectBook", vo);
+	}
+	
+	public List<ReservationVO> selectProReservation(ProfessionVO vo){
+		return mybatis.selectList("ReservationResultDAO.selectReservation", vo);
 	}
 }

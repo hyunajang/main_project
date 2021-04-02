@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="professionMypageDAO">
+	<resultMap id="ProfileResult" type="profession">
+	 	<id property="pNo" column="p_no"/>
+	 	<result property="uNo" column="u_no"/>
+	 	<result property="pGender" column="p_gender"/>
+	 	<result property="pAddress" column="p_address"/>
+	 	<result property="pLocX" column="p_loc_x"/>
+	 	<result property="pLocY" column="p_loc_y"/>
+	 	<result property="certification" column="certification"/>
+		<result property="pPic" column="p_pic"/>
+		<result property="pAgreeCheck" column="p_agreecheck"/> 	
+		<result property="pIntroduce" column="p_introduce"/> 	
+		<result property="pCategory" column="p_category"/>
+		<!--  <association property="userVO" resultMap="userResult"/>-->
+     </resultMap>
+     
+     <resultMap id="userResult" type="user">
+      <id property="uNo" column="u_no"/>      <!-- 회원번호 -->
+      <result property="uName" column="u_name"/>      <!-- 이름 -->
+      <result property="uEmail" column="u_email"/>      <!-- 이메일 -->
+      <result property="uPwd" column="u_pwd"/>      <!-- 비밀번호 -->
+      <result property="uPhone" column="u_phone"/>      <!-- 휴대전화 -->
+      <result property="uAddress" column="u_address"/>      <!-- 주소 -->
+      <result property="uLat" column="u_lat"/>      <!-- 위도 -->
+      <result property="uLon" column="u_lon"/>      <!-- 경도 -->
+      <result property="uAgreecheck" column="u_agreecheck"/>      <!-- 약관동의 -->
+      <result property="uPic" column="u_pic"/>      <!-- 사진 -->
+      <result property="uNick" column="u_nick"/>      <!-- 별명 -->
+   </resultMap>
+     
+     <update id="updateProfile">
+     	 UPDATE professions SET 
+     	 		p_address = #{pAddress},
+     	 		p_loc_x = #{pLocX},
+     	 		p_loc_y = #{pLocY},
+                p_pic = #{pPic},
+                certification = #{certification},
+     	 		p_introduce = #{pIntroduce},
+     	 		p_category = #{pCategory}
+     	 WHERE p_no= #{pNo}
+     </update>
+     
+     <delete id="deleteProfile">
+         DELETE FROM professions WHERE p_no= #{pNo}
+     </delete>
+     
+     <select id="getProfile" resultMap="ProfileResult">
+       SELECT p_no, u_no, p_gender, p_address, p_loc_x, p_loc_y, certification, p_pic, p_agreecheck, p_introduce, p_category
+       FROM professions
+       WHERE u_no= #{uNo}
+     </select>  
+</mapper>

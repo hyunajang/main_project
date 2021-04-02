@@ -42,7 +42,7 @@ table {
 	border-collapse: collapse;
 }
 
-.clearfix:after { /*날아갈경우 높이 지정*/
+.clearfix:after { /*���ư���� ���� ����*/
 	content: "";
 	display: block;
 	clear: both;
@@ -206,7 +206,7 @@ table {
 .uPic {
 	background-color: #05C3A7;
 }
-/*------사진추가시작-------*/
+/*------�����߰�����-------*/
 #userpic-wrapper {
 	margin: 0 auto;
 	width: 180px;
@@ -244,10 +244,10 @@ table {
 	color: white;
 }
 
-#user-thumb {
+#uPic {
 	display: none;
 }
-/*------사진추가완료-------*/
+/*------�����߰��Ϸ�-------*/
 .form-group>#address-group {
 	display: inline-block;
 	width: 450px;
@@ -298,7 +298,7 @@ table {
 	height: 30px;
 	border: 1px solid #e2e2e2;
 }
-/*------ Email인증 -------*/
+/*------ Email���� -------*/
 .mail_input {
 	font-size: 14px;
     line-height: 1.42857143;

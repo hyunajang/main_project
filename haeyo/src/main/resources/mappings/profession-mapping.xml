@@ -12,8 +12,13 @@
 		<result property="pAgreeCheck" column="p_agreecheck"/>
 		<result property="pIntroduce" column="p_introduce"/>
 		<result property="pCategory" column="p_category"/>
-		
-
+		<association property="professionBookmarksVO" resultMap="bookmark" />
+	</resultMap>
+	
+	<!-- bookmark -->
+	<resultMap id="bookmark" type="bookmarkVO">
+		<result property="pNo" column="p_no"/>
+		<result property="uNo" column="u_no"/>
 	</resultMap>
 	
 	<!-- review -->
@@ -21,4 +26,18 @@
 		<id property="reviewNo" column="p_no"/>
 	</resultMap>
 	
+	<!-- 북마크 인서트 -->
+	<insert id="insertBook">
+		INSERT INTO professions_bookmarks VALUES (${pNo}, ${uNo});
+	</insert>
+	
+	<!-- 북마크 삭제 -->
+	<delete id="deleteBook">
+		DELETE FROM professions_bookmarks WHERE p_no = #{pNo} AND u_no = #{uNo};
+	</delete>
+	
+	<!-- 북마크 카운트 -->
+	<select id="selectBook" resultMap="bookmark">
+		SELECT p_no, u_no FROM professions_bookmarks where p_no = #{pNo} AND  u_no = #{uNo};
+	</select>
 </mapper>

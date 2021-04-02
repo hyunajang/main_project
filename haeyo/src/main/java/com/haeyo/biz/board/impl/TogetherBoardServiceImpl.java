@@ -2,7 +2,6 @@
 package com.haeyo.biz.board.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,12 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.haeyo.biz.board.BoardService;
 import com.haeyo.biz.board.BoardVO;
 import com.haeyo.biz.user.UserVO;
-import com.haeyo.web.board.impl.TogetherBoardController;
 
 @Service("TogetherBoardService")
 public class TogetherBoardServiceImpl {
@@ -42,13 +40,17 @@ public class TogetherBoardServiceImpl {
 	}
 
 	public TogetherBoardVO getBoard(int tNo) {
-		System.out.println("TogetherBoardService에서 getBoard 처리");
+		logger.info("tNo:"+tNo);
 		return togetherBoardDAO.getBoard(tNo);
 	}
 
-	public List<BoardVO> getBoardList(UserVO userVO) {
-		System.out.println("TogetherBoardService에서 boarList 처리");
-		return togetherBoardDAO.getBoardList(userVO);
+	public List<BoardVO> getBoardList(UserVO userVO, String tHeader, PagingVO pagingVO) {
+		logger.info("userVO:"+userVO+"tHeader:"+tHeader);
+		return togetherBoardDAO.getBoardList(userVO, tHeader, pagingVO);
+	}
+	
+	public int countTotalBoard() {
+		return togetherBoardDAO.countTotalBoard();
 	}
 
 	public TogetherBoardVO uploadBoard(TogetherBoardVO togetherBoardVO) throws Exception {
@@ -97,32 +99,36 @@ public class TogetherBoardServiceImpl {
 		return togetherBoardDAO.getJoinNow(togetherMemberVO);
 	}
 	
-	public int checkBookmark(TogetherBoardVO togetherBoardVO, int uNo) {
-		logger.info("togetherBoardVO"+togetherBoardVO+","+uNo);
+	public int checkBookmark(int tNo, int boomark, int uNo) {
+		logger.info("tNo"+tNo+",uNo: "+uNo+", boomark: "+boomark);
 		int Success = 0;
 		
 		// 이미 체크된 북마크를 다시 누른 상황
-		if(togetherBoardVO.gettBookmark() == 1) {
-			togetherBoardVO.settBookmark(0);
-			int updateSuccess = togetherBoardDAO.updateBookmark(togetherBoardVO);
-			logger.info("updateSuccess:"+updateSuccess);
-			int deleteSuccess = togetherBoardDAO.deleteBookmark(uNo);
-			logger.info("deleteSuccess:"+deleteSuccess);
-			if(updateSuccess == 1 && deleteSuccess == 1) {
-				Success = 1;
-			}
+		if(boomark == 1) {
+			int deleteSuccess = togetherBoardDAO.deleteBookmark(tNo, uNo);
+			logger.info("deleteSuccess: "+deleteSuccess);
 		// 체크가 안된 북마크를 누른 상황
-		}else if(togetherBoardVO.gettBookmark() == 0) {
-			togetherBoardVO.settBookmark(1);
-			int updateSuccess = togetherBoardDAO.updateBookmark(togetherBoardVO);
-			logger.info("updateSuccess:"+updateSuccess);
-			int insertSuccess = togetherBoardDAO.insertBookmark(togetherBoardVO, uNo);
-			logger.info("insertSuccess:"+insertSuccess);
-			if(updateSuccess == 1 && insertSuccess == 1) {
-				Success = 1;
-			}
+		}else if(boomark == 0) {
+			int insertSuccess = togetherBoardDAO.insertBookmark(tNo, uNo);
+			logger.info("insertSuccess: "+insertSuccess);
+			Success = 1;
 		}
-		
 		return Success;
+	}
+	
+	//검색에 대한 부분
+	public List<TogetherBoardVO> searchBoardList(String searchInput) {
+		logger.info("searchInput: "+searchInput);
+		return  togetherBoardDAO.searchBoardList(searchInput);
+	} 
+	
+	public List<TogetherBoardVO> previewBoardList(String searchInput) {
+		logger.info("searchInput: "+searchInput);
+		return  togetherBoardDAO.previewBoardList(searchInput);
+	} 
+	
+	public List<TogetherBoardVO> sortBoardList(String sortInput, String tHeader){
+		logger.info("sortInput: "+sortInput+", tHeader: "+tHeader);
+		return togetherBoardDAO.sortBoardList(sortInput, tHeader);
 	}
 }

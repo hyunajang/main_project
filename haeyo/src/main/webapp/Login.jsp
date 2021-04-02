@@ -6,11 +6,12 @@
 <%@ page import="java.security.SecureRandom"%>
 <%@ page import="java.math.BigInteger"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<% 
-	String errMsg = (String)session.getAttribute("errMsg");
-	if(errMsg == null) errMsg = "";
-	
-	session.invalidate();
+<%
+	String errMsg = (String) session.getAttribute("errMsg");
+if (errMsg == null)
+	errMsg = "";
+
+session.invalidate();
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
-<link href="resources/image/icon.ico" rel="shortcut icon" type="image/x-icon">
+<link href="resources/image/icon.ico" rel="shortcut icon"
+	type="image/x-icon">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -30,7 +32,6 @@
 <link href="resources/css/login.css" rel="stylesheet">
 <link href="resources/css/header.css" rel="stylesheet">
 <script defer src="resources/js/login.js"></script>
-
 </head>
 
 <body>
@@ -98,7 +99,7 @@
 				</li>
 			</ul>
 		</nav>
-	</header> <!------- headerEND -------> <!------- loginStart ------->
+	</header> <!------- headerEND -------> <!------- loginStart -------> <!-- <form action="login.do" method="post"> -->
 	<form action="login.do" name=form method="post"
 		onsubmit="return Login_proc.jsp();">
 		<!-- <form action="login.do" name=form method="post"
@@ -118,7 +119,7 @@
 					<label for="uPwd">비밀번호를 입력하세요</label> <input type="password"
 						class="form-control" id="uPwd" name="uPwd" placeholder="">
 				</div>
-				<div id="errMsg" style="color:red"><%=errMsg %></div>
+				<div id="errMsg" style="color: red"><%=errMsg%></div>
 				<div class="box">
 					<div id="login-button">
 						<button type="submit" class="btn-secondary"

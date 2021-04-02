@@ -18,10 +18,14 @@
     <link href="resources/css/header.css" rel="stylesheet">
     <link href="resources/css/profession/application.css" rel="stylesheet">
     <script src="resources/js/jquery-1.12.4.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75d6c9cf371d5f0cd64d40592c350582&libraries=services"></script>
+	<script src="resources/js/profession/application.js" defer></script>
     <script>
-    
-    
-    
+    window.onload = function(){
+    	let subCate = ${Catetxt};
+    	insertCate(subCate);
+    }
     </script>
 <body>
     <wrap>
@@ -65,18 +69,18 @@
                 <div id="requestlistWrap" class="clearfix">
                     <div id="requestlist" class="clearfix">
                         <p>전문가 신청서</p>
-                        <form action="" method="get">
+                        <form action="insertReser.do" method="GET">
+                        	<input type="hidden" id="pNo" name="pNo" value="">
+                        	<input type="hidden" id="rsvCategory" name="rsvCategory" value=""/>
                             <div class="box">
                                 <ul id="sub_category" class="clearfix">
-                                    <li><label for="sub_category01"><i class="fas fa-check"></i>${subCategory.rsvElectric}</label><input type="hidden" id="sub_category02" name="sub_categroy" value=""></li>
-                                    <li><label for="sub_category02"><i class="fas fa-check"></i>${subCategory.rsvDoor}</label><input type="hidden" id="sub_category01" name="sub_categroy" value=""></li>
                                 </ul>
                             </div>
                             <div class="box">
                                 <label>사진을 첨부하시겠어요?</label><br>
                                 <ul>
-                                    <li><input type="radio" name="picYN" value="Y" class="radio_btn" onclick="value_check()"><span>예</span></li>
-                                    <li><input type="radio" name="picYN" value="N" class="radio_btn" onclick="value_check()"><span>아니요</span></li>
+                                    <li><input type="radio" name="rsvPic" value="Y" class="radio_btn" onclick="value_check()"><span>예</span></li>
+                                    <li><input type="radio" name="rsvPic" value="null" class="radio_btn" onclick="value_check()"><span>아니요</span></li>
                                 </ul>
                                 <div id="photoWrap">
                                     <div id="btn_wrap" class="clearfix">
@@ -84,8 +88,8 @@
                                     </div>
                                     <div id="fileWrap" class="clearfix">
                                         <label for="pic-thumb"></label>
-                                        <input type="file" name="pic" value="" id="pic-thumb" class="filebtn" accept="image/png, image/jpeg" onchange="thumbnail(event)"/>
-                                        <button type="button">-</button>
+                                       <!--   <input type="file" name="rsvPic" value="" id="pic-thumb" class="filebtn" accept="image/png, image/jpeg" onchange="thumbnail(event)"/>
+                                        <button type="button">-</button>-->
                                     </div>
                                     <div id="photo" class="clearfix">
                                         <div id="thumb-img" class="pic_thumb"><img src=""></div>
@@ -94,18 +98,19 @@
                             </div>
                             <div class="box">
                                 <label>어느 지역이신가요?</label><br>
-                                <input type="text" id="searchLoc"/><input type="button" id="searchBtn" onclick="sample5_execDaumPostcode()" value="주소 검색"/>
+                                <input type="text" id="searchLoc" name="rsvLoc"/><input type="button" id="searchBtn" onclick="PostCode()" value="주소 검색"/>
                                 <div id="map"></div>
-                                <input type="hidden" id="locX" value=""/>
-                                <input type="hidden" id="locY" value=""/>
                             </div>
                             <div class="box">
                                 <label>일정을 입력해주세요</label><br>
-                               	<input type="date" id="startDate" name="startDate" value=""/>
+                               	<input type="date" id="rsvDate" name="rsvDate" value=""/>
+                            </div>
+                            <div class="box">
+                                <label>세부사항을 입력해주세요</label><br>
+                                <textarea name="rsvDetail" cols="50" rows="5"></textarea><br>
                             </div>
                             <button type="submit" class="heayo_btn">제출하기</button>
                         </form>
-                		<script src="js/checklist.js" type="text/javascript"></script>
                     </div>
                     <div id="checkInfo">
                         <h3><i class="far fa-check-circle"></i> 전문가 신청서</h3>

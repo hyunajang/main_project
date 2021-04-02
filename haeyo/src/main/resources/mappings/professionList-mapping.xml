@@ -33,7 +33,7 @@
 	<!-- 청소 -->
 	<resultMap id="cleaningCate" type="cleaning">
 		<result property="pToilet" column="p_toilet"/>
-		<result property="pLiving" column="p_living"/>
+		<result property="pRoom" column="p_room"/>
 		<result property="pRefrigerator" column="p_refrigerator"/>
 		<result property="pArrangement" column="p_arrangement"/>
 		<result property="pHomein" column="p_homein"/>
@@ -54,6 +54,20 @@
 	</resultMap>
 	
 	<select id="getProList" resultMap="proListResult">
+      	SELECT distinct pro.p_no , u.u_name, pro.p_category ,pro.p_pic ,pro.p_address, re.score, ROUND(IFNULL(AVG((re.score)),0),1) reav
+     	FROM professions pro
+	    LEFT OUTER JOIN reservations rse ON pro.p_no = rse.p_no
+		LEFT JOIN users u ON pro.u_no = u.u_no
+	    LEFT OUTER JOIN reviews re ON pro.p_no = re.p_no
+	    WHERE rse.rsv_date NOT between #{startDate} AND #{endDate}
+	    AND pro.p_category = #{pCategory}
+	   <![CDATA[
+        AND ((6371*acos(cos(radians(#{pLocX}))*cos(radians(pro.p_loc_x))*cos(radians(pro.p_loc_y)
+		-radians(#{pLocY}))+sin(radians(#{pLocX}))*sin(radians(pro.p_loc_x))))) <= 10
+		]]>
+		group by pro.p_no LIMIT 3;
+	</select>
+<!-- 	<select id="getProList" resultMap="proListResult">
         SELECT pro.p_no, u.u_name, pro.p_category ,pro.p_pic ,pro.p_address, pro.p_loc_y, re.score, ROUND(IFNULL(AVG((re.score)),0),1) reav
         FROM professions pro
         LEFT OUTER JOIN users u ON pro.u_no = u.u_no
@@ -65,10 +79,10 @@
 		-radians(#{pLocY}))+sin(radians(#{pLocX}))*sin(radians(pro.p_loc_x))))) <= 10
 		]]>
         group by pro.p_no;
-	</select>
+	</select> -->
 	
 	<select id="getAllList" resultMap="proListResult">
-		SELECT pro.p_no, u.u_name, pro.p_category ,pro.p_address,pro.p_pic, pro.p_loc_x, pro.p_loc_y, re.score, ROUND(IFNULL(AVG((re.score)),0),1) reav,
+		SELECT pro.p_no, u.u_name, pro.p_category, pro.p_introduce ,pro.p_address,pro.p_pic, pro.p_loc_x, pro.p_loc_y, re.score, ROUND(IFNULL(AVG((re.score)),0),1) reav,
 		COUNT(re.p_no) count,
 		((6371*acos(cos(radians(#{pLocX}))*cos(radians(pro.p_loc_x))*cos(radians(pro.p_loc_y)-radians(#{pLocY}))+sin(radians(#{pLocX}))*sin(radians(pro.p_loc_x))))) distance
         FROM professions pro
@@ -88,6 +102,33 @@
 	            </otherwise>
 	       </choose>
         </if>
+	</select>
+	
+	<!-- 전문가 select 테스트 -->
+	<select id="getList" resultMap="proListResult">
+		SELECT pro.p_no, u.u_name, pro.p_category, pro.p_introduce ,pro.p_address,pro.p_pic, pro.p_loc_x, pro.p_loc_y, re.score, ROUND(IFNULL(AVG((re.score)),0),1) reav,
+		COUNT(re.p_no) count
+        FROM professions pro
+        LEFT OUTER JOIN users u ON pro.u_no = u.u_no
+    	LEFT OUTER JOIN reviews re ON pro.p_no = re.p_no
+        <include refid="category_sql"/>
+			<choose><!-- if함수의 종류 중 하나 -->
+	        	<when test="order == 1">
+	                  ORDER BY reav DESC
+	            </when>
+	        	<when test="order == 2">
+	                  ORDER BY count DESC
+	            </when>
+	            <otherwise>
+	                  ORDER BY p_no
+	            </otherwise>
+	       </choose>
+	</select>
+	
+		<!-- 전문가 select 테스트 -->
+	<select id="getListTest" resultMap="proListResult">
+		SELECT pro.p_no, pro.p_category, pro.p_introduce ,pro.p_address, pro.p_pic
+        FROM professions pro
 	</select>
 	
 	<!-- 디테일 상단 전문가 정보출력 -->

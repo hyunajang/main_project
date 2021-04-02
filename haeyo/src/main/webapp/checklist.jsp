@@ -69,7 +69,7 @@
                         <form action="recommend.do" method="get">
                             <div class="box">
                                 <label>어느 지역을 찾으시나요?</label><br>
-                                <input type="text" id="searchLoc" /><input type="button" id="searchBtn"
+                                <input type="text" id="searchLoc" name="serchloc"/><input type="button" id="searchBtn"
                                     onclick="PostCode()" value="주소 검색" />
                                 <div id="map"></div>
                                 <input type="hidden" id="locX" name="pLocX" value="" />

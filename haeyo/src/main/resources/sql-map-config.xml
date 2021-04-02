@@ -21,15 +21,28 @@
 		<typeAlias alias="togetherBoardListVO" type="com.haeyo.biz.board.impl.TogetherBoardListVO"/>
 		<typeAlias alias="singleBoardListVO" type="com.haeyo.biz.board.impl.SingleBoardListVO"/>
 		<typeAlias alias="togetherReplyVO" type="com.haeyo.biz.board.impl.TogetherReplyVO"/>
+		<typeAlias alias="togetherBookmarkVO" type="com.haeyo.biz.board.impl.TogetherBookmarkVO"/>
+		<!-- reservation -->
+		<typeAlias alias="reservationVO" type="com.haeyo.biz.reservation.ReservationVO"/>
+		<typeAlias alias="resCleaningVO" type="com.haeyo.biz.reservation.ReservationCleaningVO"/>
+		<typeAlias alias="resMovingVO" type="com.haeyo.biz.reservation.ReservationMovingVO"/>
+		<typeAlias alias="resRepairVO" type="com.haeyo.biz.reservation.ReservationRepairVO"/>
+		<!-- bookmark -->
+		<typeAlias alias="bookmarkVO" type="com.haeyo.biz.profession.ProfessionBookmarksVO"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappings/user-mapping.xml"/>
+		<mapper resource="mappings/userMypage-mapping.xml"/> 
+		
 		<mapper resource="mappings/profession-mapping.xml"/>
 		<mapper resource="mappings/professionList-mapping.xml"/>
+		<mapper resource="mappings/professionMypage-mapping.xml"/>
 		
 		<mapper resource="mappings/singleBoard-mapping.xml"/>
 		<mapper resource="mappings/togetherBoard-mapping.xml"/>
 		<mapper resource="mappings/proSubcategory-mapping.xml"/>
+
+		<mapper resource="mappings/reservation-mapping.xml"/>
 	</mappers>
 </configuration>

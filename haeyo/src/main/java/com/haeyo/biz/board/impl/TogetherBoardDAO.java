@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.haeyo.biz.board.BoardVO;
 import com.haeyo.biz.user.UserVO;
-import com.haeyo.web.board.impl.TogetherBoardController;
 
 @Repository
 public class TogetherBoardDAO {
@@ -40,12 +39,22 @@ public class TogetherBoardDAO {
 		System.out.println((TogetherBoardVO)sqlSession.selectOne("togetherBoardDAO.selectTogetherBoard", tNo));
 		return (TogetherBoardVO)sqlSession.selectOne("togetherBoardDAO.selectTogetherBoard", tNo);
 	}
-	
-	public List<BoardVO> getBoardList(UserVO userVO) { //uNo, tHeader, pagecount (, TogetherBoardVO togetherBoardVO
-		logger.info("userVO:"+userVO);
-		System.out.println(sqlSession.selectList("togetherBoardDAO.selectTogetherBoardList", userVO));
-		return sqlSession.selectList("togetherBoardDAO.selectTogetherBoardList", userVO); // ListVO를 이용하는 것 같음
+
+	public List<BoardVO> getBoardList(UserVO userVO, String tHeader, PagingVO pagingVO) { //uNo, tHeader, pagecount (, TogetherBoardVO togetherBoardVO
+		logger.info(" userVO: "+userVO+" tHeader:"+tHeader);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userVO", userVO);
+		params.put("tHeader", tHeader);
+		params.put("pagingVO", pagingVO);
+		List<BoardVO> result = sqlSession.selectList("togetherBoardDAO.selectTogetherBoardList", params);
+		logger.info("result: "+ result);
+		return result; // ListVO를 이용하는 것 같음
 //		리턴totalcount=>count(t_no)
+	}
+	
+	public int countTotalBoard() {
+		logger.info("");
+		return sqlSession.selectOne("countTotalBoard");
 	}
 	
 	//댓글에 대한 부분
@@ -106,16 +115,43 @@ public class TogetherBoardDAO {
 		return sqlSession.update("togetherBoardDAO.updateBookmark", togetherBoardVO);
 	}
 	
-	public int insertBookmark(TogetherBoardVO togetherBoardVO, int uNo) {
-		logger.info("togetherBoardVO:"+togetherBoardVO+", uNo"+uNo);
+	public int insertBookmark(int tNo, int uNo) {
+		logger.info("tNo:"+tNo+", uNo"+uNo);
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("togetherBoardVO", togetherBoardVO);
+		params.put("tNo", tNo);
 		params.put("uNo", uNo);
 		return sqlSession.insert("togetherBoardDAO.insertBookmark", params);
 	}
 	
-	public int deleteBookmark(int uNo) {
-		logger.info("uNo:"+uNo);
-		return sqlSession.update("togetherBoardDAO.deleteBookmark", uNo);
+	public int deleteBookmark(int tNo, int uNo) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tNo", tNo);
+		params.put("uNo", uNo);
+		return sqlSession.update("togetherBoardDAO.deleteBookmark", params);
+	}
+	
+	//검색에 대한 부분
+	public List<TogetherBoardVO> searchBoardList(String searchInput) {
+		logger.info("searchInput: "+searchInput);
+		List<TogetherBoardVO> result = sqlSession.selectList("togetherBoardDAO.searchBoardList", searchInput);
+		logger.info("result: "+result);
+		return result;
+	}
+	//검색 자동 완성
+	public List<TogetherBoardVO> previewBoardList(String searchInput) {
+		logger.info("searchInput: "+searchInput);
+		List<TogetherBoardVO> result = sqlSession.selectList("togetherBoardDAO.previewBoardList", searchInput);
+		logger.info("result: "+result);
+		return result;
+	}
+	//분류별 정렬
+	public List<TogetherBoardVO> sortBoardList(String sortInput, String tHeader){
+		logger.info("sortInput: "+sortInput+",tHeader: "+ tHeader);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sortInput", sortInput);
+		params.put("tHeader", tHeader);
+		List<TogetherBoardVO> result = sqlSession.selectList("togetherBoardDAO.sortBoardList", params);
+		logger.info("result: "+result);
+		return result;
 	}
 }

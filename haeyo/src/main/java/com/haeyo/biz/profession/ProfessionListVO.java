@@ -15,7 +15,14 @@ public class ProfessionListVO extends ProfessionVO {
 	private String reviewContent;
 	private String uPic;
 	private String uNick;
+	private String serchloc;
 	
+	public String getSerchloc() {
+		return serchloc;
+	}
+	public void setSerchloc(String serchloc) {
+		this.serchloc = serchloc;
+	}
 	public String getuNick() {
 		return uNick;
 	}
@@ -113,8 +120,10 @@ public class ProfessionListVO extends ProfessionVO {
 	public String toString() {
 		return "ProfessionListVO [uName=" + uName + ", rsvDate=" + rsvDate + ", reviewNo=" + reviewNo + ", reviewDate="
 				+ reviewDate + ", score=" + score + ", startDate=" + startDate + ", endDate=" + endDate + ", order="
-				+ order + ", reviewContent=" + reviewContent + ", uPic=" + uPic + ", uNick=" + uNick + ", count="
-				+ count + "]";
+				+ order + ", reviewContent=" + reviewContent + ", uPic=" + uPic + ", uNick=" + uNick + ", serchloc="
+				+ serchloc + ", count=" + count + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 
 }

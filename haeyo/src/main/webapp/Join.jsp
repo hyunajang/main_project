@@ -101,8 +101,8 @@
 				<div class="form-group">
 					<div id="userpic-wrapper">
 						<img id="thumb-img"> <label class="click-icon"
-							for="user-thumb"><i class="fas fa-camera"></i></label> <input
-							type="file" name="file" id="user-thumb"
+							for="uPic"><i class="fas fa-camera"></i></label> <input
+							type="file" name="uPic" id="uPic"
 							class="upload-box upload-plus" accept="image/*"
 							onchange="thumbnail(event)">
 					</div>
@@ -115,7 +115,10 @@
 					<label for="uNick">별 명</label> <input type="text" name="uNick"
 						class="form-control" id="uNick" placeholder="Zn">
 				</div>
-
+				<div class="form-group">
+					<label for="uPhone">전화번호</label> <input type="text" name="uPhone"
+						class="form-control" id="uPhone" placeholder="010-0000-0000">
+				</div>
 				<div class="form-group">
 					<label for="uEmail">이메일</label> <input type="text" name="uEmail"
 						class="form-control" id="uEmail" placeholder="email@bit.com">
@@ -184,10 +187,8 @@
 							value="회 원 가 입" />
 					</div>
 					<div id="join2-button">
-
-						<!-- <button type="submit" class="btn-secondary"
+						<button type="submit" class="btn-secondary"
 							onclick="location.href='Join_pro.jsp'">전문가로 가입하기</button>
- 						-->
 					</div>
 				</div>
 			</fieldset>
@@ -245,43 +246,6 @@
 			<p class="copy">Copyright heayo Web Inc. All Rights Reserved.</p>
 		</section>
 	</footer> <!------- footerEND -------> </wrap>
-	<script>
-			var code = "";	//이메일 전송 인증번호 저장위한 코드
-	
-			$(".mail_check_button").click(function() {
-				var email = $(".mail_input").val(); // 입력한 이메일
-				var checkBox = $(".mail_check_input");        // 인증번호 입력란
-			    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
-				
-				$.ajax({
-					type : "GET",
-					url : "mailCheck?email=" + email,
-					success:function(data){
-						
-						//console.log("data : " + data);
-						checkBox.attr("disabled",false);
-						boxWrap.attr("id", "mail_check_input_box_true");
-						code = data;
-					}
-				});
-			});
-			
-			/*인증번호 비교*/
-			$(".mail_check_input").blur(function(){
-				
-			    var inputCode = $(".mail_check_input").val();        // 입력코드    
-			    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과 
-				
-			    if(inputCode == code){								 // 일치할 경우
-			    	checkResult.html("인증번호가 일치합니다.");
-			    	checkResult.attr("class", "correct");
-			    } else {											 // 일치할 경우
-			    	checkResult.html("인증번호를 다시 확인해주세요.");
-			    	checkResult.attr("class", "incorrect");
-			    }
-			});
-
-	</script>
 </body>
 
 </html>

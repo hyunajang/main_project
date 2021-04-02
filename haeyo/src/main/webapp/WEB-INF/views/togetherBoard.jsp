@@ -13,8 +13,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="resources/css/main.css" rel="stylesheet">
 <link href="resources/css/common.css" rel="stylesheet">
-<link href="resources/css/togetherboard.css" rel="stylesheet">
-<script src="resources/js/togetherboard.js?v=<%=System.currentTimeMillis()%>"></script>
+<link href="resources/css/togetherBoard.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
+<script src="resources/js/togetherBoard.js?v=<%=System.currentTimeMillis()%>"></script>
 <title>함께해요 읽기페이지</title>
 
 </head>
@@ -42,10 +42,10 @@
 				</li>
 				<li class="btn-group">
 					<div class="dropdown-toggle" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">${user.uNick}님</div>
+						aria-haspopup="true" aria-expanded="false">${user.uNic}님</div>
 					<div class="dropdown-menu dropdown-menu-right" id="profile">
 						<div id="profiteTxt">
-							<span>반갑습니다! </span>${user.uNick}님</div>
+							<span>반갑습니다! </span>${user.uNic}님</div>
 						<ul class="profileMenu">
 							<li><i class="fas fa-user menuico"></i>마이페이지</li>
 							<li><i class="fas fa-sign-out-alt menuico"></i>로그아웃</li>
@@ -57,7 +57,6 @@
 		</nav>
 	</header>
 	<!------- headerEND ------->
-
 	<div id="t_upper_contents">
 		<div id="t_upper_content1">${board.tHeader}</div>
 	</div>
@@ -83,9 +82,9 @@
 				</tr>
 				<tr>
 					<th>인원</th>
-					<td id="joinCount">${board.tJoinNow}/${board.tJoinMax}</td>
+					<td><span id="tJoinNow">${board.tJoinNow}</span>/${board.tJoinMax}</td>
 					<td><button class="btn btn-primary" id="tJoinNow"
-							onclick="tJoin(${board.tNo})">참여하기</button></td>
+							onclick="tJoin(${board.tNo},${board.tJoinNow},${board.tJoinMax})">참여하기</button></td>
 				</tr>
 				<!-- (tJoinNow, uNo,tNo) -->
 				<tr>
@@ -102,7 +101,7 @@
 				<tr>
 					<th>조회수</th>
 					<td>${board.tHits}</td>
-					<td id="tBookmark">${board.tBookmark}</td>
+					<td id="tBookmark" onclick="tBookmark(${board.tNo})">${board.tBookmark}</td>
 				</tr>
 			</table>
 			<div id="middlebuttons">
@@ -113,6 +112,10 @@
 				<div class="middlebutton">
 					<a href="t_deleteBoard.do?tNo=${board.tNo}"><button
 							class="btn btn-primary">삭제하기</button></a>
+				</div>
+				<div class="middlebutton">
+					<a href="t_openBoardList.do?tHeader=${board.tHeader}"><button
+					 	class="btn btn-primary">목록으로</button></a>
 				</div>
 			</div>
 		</div>

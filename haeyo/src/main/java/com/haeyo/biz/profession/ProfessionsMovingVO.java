@@ -30,4 +30,11 @@ public class ProfessionsMovingVO {
 	public void setpKeep(int pKeep) {
 		this.pKeep = pKeep;
 	}
+	
+	@Override
+	public String toString() {
+		return "ProfessionsMovingVO [pNo=" + pNo + ", pTransportaition=" + pTransportaition + ", pOneroom=" + pOneroom
+				+ ", pKeep=" + pKeep + "]";
+	}
+	
 }

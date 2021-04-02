@@ -22,14 +22,13 @@
 <script src="resources/js/jquery-1.12.4.min.js"></script>
 <script src="resources/js/profession/professionList.js" defer></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- sockJS -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script>
+
 </script>
 </head>
 <body>
-	<%
-	session = request.getSession();
-	UserVO user = (UserVO) session.getAttribute("user");
-	%>
 	<wrap> <!---------------------HeaderStart--------------------->
 	<header id="header">
 		<nav id="nav">
@@ -91,12 +90,12 @@
 							</div>
 						</a> <span class="profile_img"><img
 							src="resources/image/${proRecom.pPic}.jpg"></span>
-						<div class="book"></div>
+						<div class="book" onclick="bookplus(${proRecom.pNo},${user.uNo})"></div>
 					</div>
 				</c:forEach>
 
 				<h3 id="location">
-					<i class="fas fa-map-marker-alt"></i> 서울시 마포구
+					<i class="fas fa-map-marker-alt"></i> ${serchloc}
 				</h3>
 			</div>
 		</section>
@@ -104,10 +103,11 @@
 		<section id="listWrap">
 			<div id="professionList">
 				<h1>전문가 리스트</h1>
-				<select>
-					<option>등록순</option>
-					<option>거리순</option>
-					<option>리뷰순</option>
+				<select id="order" name="order" onchange="selectList(this.value)">
+					<option value="">등록순</option>
+					<option value="1">평점순</option>
+					<option value="2">리뷰순</option>
+					<option value="3">거리순</option>
 				</select>
 				<div id="proWrap">
 					<c:forEach var="proList" items="${proList}">
@@ -119,7 +119,7 @@
 								<span class="pCate">${proList.pCategory}</span>
 							</div>
 							<h2>${proList.pAddress}</h2>
-							<p>🎈하늘을 날아갈 듯한 깨끗함을 만들어 드립니다! 청소 전문가 ㅠ장현아!</p>
+							<p>${proList.pIntroduce}</p>
 							<div class="starWrap">
 								<ul class="star clearfix">
 									<li><i class="fas fa-star"></i></li>
@@ -131,8 +131,8 @@
 								<span class="score">${proList.score}</span>
 							</div>
 							<div class="rihgt_txt">
-								<span class="book2"></span>
-								<button class="proList_btn">
+								<span class="book2" onclick="bookplus(${proList.pNo},${user.uNo})"></span>
+								<button class="proList_btn" onclick="location.href='detail.do?pNo=${proList.pNo}&pCategory=${proList.pCategory}'">
 									상세 보기 <i class="fas fa-arrow-right"></i>
 								</button>
 							</div>
@@ -141,7 +141,6 @@
 					</c:forEach>
 				</div>
 			</div>
-
 		</section>
 	</main>
 	<!---------------------MainEnd--------------------->

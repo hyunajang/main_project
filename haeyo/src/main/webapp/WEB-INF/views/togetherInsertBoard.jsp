@@ -15,7 +15,8 @@
     <link href="resources/css/main.css" rel="stylesheet">
     <link href="resources/css/common.css" rel="stylesheet">
     <script defer src="resources/js/common.js"></script>
-	<link href="resources/css/insert.css" rel="stylesheet">
+    <script src="resources/js/togetherInsertBoard.js?v=<%=System.currentTimeMillis()%>"></script>
+	<link href="resources/css/togetherInsertBoard.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
 <title>함께해요 게시글 작성</title>
 </head>
 <body>
@@ -64,7 +65,7 @@
 					<select class="form-control" id="tHeader" name="tHeader">
 						<option value="함께먹어요">함께 먹어요</option>
 						<option value="함께출퇴근해요">함께 출퇴근해요</option>
-						<option value="함께 나눠요">함께 나눠요</option>
+						<option value="함께나눠요">함께 나눠요</option>
 					</select>
 				</div>	
 				<div class="form-group">
@@ -78,17 +79,18 @@
 	  			</div>
 					
 				<div class="form-group">
-	     			<label for="tAddress">날짜</label>
+	     			<label for="tJoinDate">날짜</label>
 	    			<input type="date" class="form-control" id="tJoinDate" name="tJoinDate">
 	  			</div>
 				<div class="form-inline">
-					<label for="exampleSelect1">참여가능 인원수</label>
+					<label for="tJoinMax">참여가능 인원수</label>
 					<select class="form-control" id="tJoinMax" name="tJoinMax">
 						   <option>1</option>
 						   <option>2</option>
 						   <option>3</option>
 						   <option>4</option>
 						   <option>5</option>
+						   <option>6</option>
 					</select>
 				</div>	
 				<div class="form-group">
@@ -97,8 +99,9 @@
 				</div>
 				<div class="form-group">
 					<label for="uploadFile">사진 첨부</label>
-					<input type="file" class="form-control-file" id="uploadFile" name="uploadFile">
+					<input type="file" class="form-control-file" id="uploadFile" name="uploadFile" onchange="loadFile(event);"/>
 				</div>
+				<img id="image_preview" src="" />
 				<input type="hidden" id="hNo" name="hNo" value="10001">
 				<div id="insertbutton">
 					<button type="submit" class="btn btn-primary">등록</button>

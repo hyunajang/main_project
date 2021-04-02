@@ -33,7 +33,7 @@ public class TogetherBoardVO implements BoardVO{
 	//댓글
 	private List<TogetherReplyVO> tReplyList;
 	//북마크
-	private TogetherBookmarkVO togetherBookmarkVO;
+	private TogetherBookmarkVO tBookmarkVO;
 	
 	public int gettNo() {
 		return tNo;
@@ -126,7 +126,6 @@ public class TogetherBoardVO implements BoardVO{
 		this.tHits = tHits;
 	}
 	
-	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
@@ -145,13 +144,12 @@ public class TogetherBoardVO implements BoardVO{
 	public void settReplyList(List<TogetherReplyVO> tReplyList) {
 		this.tReplyList = tReplyList;
 	}
-	public TogetherBookmarkVO getTogetherBookmarkVO() {
-		return togetherBookmarkVO;
+	public TogetherBookmarkVO gettBookmarkVO() {
+		return tBookmarkVO;
 	}
-	public void setTogetherBookmarkVO(TogetherBookmarkVO togetherBookmarkVO) {
-		this.togetherBookmarkVO = togetherBookmarkVO;
+	public void settBookmarkVO(TogetherBookmarkVO tBookmarkVO) {
+		this.tBookmarkVO = tBookmarkVO;
 	}
-	
 	@Override
 	public String toString() {
 		return "TogetherBoardVO [tNo=" + tNo + ", hNo=" + hNo + ", tHeader=" + tHeader + ", tTitle=" + tTitle
@@ -159,6 +157,6 @@ public class TogetherBoardVO implements BoardVO{
 				+ ", tLocY=" + tLocY + ", tBookmark=" + tBookmark + ", tCredate=" + tCredate + ", tJoinDate="
 				+ tJoinDate + ", tJoinMax=" + tJoinMax + ", tJoinNow=" + tJoinNow + ", tHits=" + tHits + ", userVO="
 				+ userVO + ", tReplyList=" + tReplyList + ", togetherBookmarkVO="
-				+ togetherBookmarkVO + "]";
+				+ tBookmarkVO + "]";
 	}
 }

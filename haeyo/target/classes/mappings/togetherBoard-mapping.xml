@@ -25,7 +25,7 @@
 		<result property="uPic" column="u_pic"/>
 		<result property="uNo" column="u_no"/>
 	</resultMap>
-	
+	<!-- 상세글보기 부분 -->
 	<select id="selectTogetherBoard" resultMap="togetherBoardResult">
 		SELECT t_no, u_no, u_pic, u_nick, t_header, t_title, t_content, t_join_date, t_pic, t_address, t_bookmark, t_credate, t_join_max, t_join_now, t_hits
 		FROM together_board, users
@@ -40,25 +40,37 @@
 		<result property="tAddress" column="t_address"/>
 		<result property="tBookmark" column="t_bookmark"/>
 		<result property="tHits" column="t_hits"/>
+		<association property="tBookmarkVO" resultMap="tBookmarkResult"/>
 	</resultMap>
+	<resultMap id="tBookmarkResult" type="togetherBookmarkVO">
+		<result property="tNo" column="bookmark_t_no"/>
+	</resultMap>
+	<!-- 글 목록 부분 -->
+	<select id="selectTogetherBoardList" parameterType="map" resultMap="togetherBoardListResult">
+		SELECT b.t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits, m.t_no as bookmark_t_no
+		FROM together_board as b
+		LEFT JOIN (SELECT u_no, t_no FROM together_bookmarks WHERE u_no = #{userVO.uNo}) as m
+		USING(t_no)
+		WHERE 1=1 
+		<choose>
+			<when test="tHeader == null">
+				ORDER BY RAND() limit 0,6
+			</when>
+			<when test="tHeader.equals('함께먹어요')">
+				AND t_header = #{tHeader} limit #{pagingVO.startNo},6
+			</when>
+			<when test="tHeader.equals('함께출퇴근해요')">
+				AND t_header = #{tHeader} limit #{pagingVO.startNo},6
+			</when>
+			<when test="tHeader.equals('함께나눠요')">
+				AND t_header = #{tHeader} limit 0,6
+			</when>	
+		</choose>
+	</select>
 	
-	<select id="selectTogetherBoardList" resultMap="togetherBoardListResult">
-		SELECT t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits FROM together_board 
-		WHERE h_no = #{uNo} 
-		<!-- 
-		<if test="#{tHeader} == null">
-			limit 0,8
-		</if>
-		<if test="#{tHeader} == 함께먹어요">
-			AND t_header = #{tHeader} limit 0,9
-		</if>
-		<if test="#{tHeader} == 함께출근해요">
-			AND t_header = #{tHeader} limit 0,9
-		</if>
-		<if test="#{tHeader} == 함께나눠요">
-			AND t_header = #{tHeader} limit 0,9
-		</if>
-		 -->
+	<select id="countTotalBoard" resultType="int">
+		SELECT COUNT(t_no) 
+		FROM together_board 
 	</select>
 
 	<insert id="insertTogetherBoard">
@@ -153,24 +165,100 @@
 
 	<resultMap id="selectJoinNowResult" type="togetherBoardVO">
 		<result property="tJoinNow" column="t_join_now"/>
-		<result property="tJoinMax" column="t_join_max"/>
 	</resultMap>
 
 	<select id="selectJoinNow" resultMap="selectJoinNowResult">
-		SELECT t_join_now, t_join_max FROM together_board WHERE t_no = #{tNo}
+		SELECT t_join_now FROM together_board WHERE t_no = #{tNo}
 	</select>
 	
-	<!-- 북마크에 대한 부분 -->
+	<!-- 북마크 부분 -->
 	<update id="updateBookmark">
 		UPDATE together_board SET t_bookmark = #{tBookmark} 
 		WHERE t_no = #{tNo}
 	</update>
 	
 	<insert id="insertBookmark" parameterType="map">
-		INSERT INTO together_bookmarks VALUES(#{uNo},#{togetherBoardVO.tNo})
+		INSERT INTO together_bookmarks VALUES(#{uNo},#{tNo})
 	</insert>
 	
 	<delete id="deleteBookmark">
-		DELETE FROM together_bookmarks WHERE u_no= #{uNo}
+		DELETE FROM together_bookmarks WHERE u_no= #{uNo} AND t_no = #{tNo}
 	</delete>
+	
+	<!-- 검색창 부분 -->
+	<resultMap id="searchResult" type="togetherBoardVO">
+		<result property="tNo" column="t_no"/>
+		<result property="tHeader" column="t_header"/>
+		<result property="tTitle" column="t_title"/>
+		<result property="tPic" column="t_pic"/>
+		<result property="tAddress" column="t_address"/>
+		<result property="tBookmark" column="t_bookmark"/>
+		<result property="tHits" column="t_hits"/>
+	</resultMap>
+	
+	<select id="searchBoardList" resultMap="searchResult">
+		SELECT t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits
+		FROM together_board 
+		WHERE t_title LIKE CONCAT('%',#{searchInput},'%')
+		OR t_content LIKE CONCAT('%',#{searchInput},'%') 
+	</select>
+	
+	<resultMap id="previewResult" type="togetherBoardVO">
+		<result property="tNo" column="t_no"/>
+		<result property="tTitle" column="t_title"/>
+	</resultMap>
+	
+	<select id="previewBoardList" resultMap="previewResult">
+		SELECT t_no, t_title
+		FROM together_board 
+		WHERE t_title LIKE CONCAT('%',#{searchInput},'%')
+	</select>
+	
+	<!-- 조건별 정렬 부분(조회수순, 참여가능인원 많은순, 최대참여인원순, 북마크인기순, 거리순)  -->
+	<resultMap id="sortResult" type="togetherBoardVO">
+		<result property="tNo" column="t_no"/>
+		<result property="tHeader" column="t_header"/>
+		<result property="tTitle" column="t_title"/>
+		<result property="tPic" column="t_pic"/>
+		<result property="tAddress" column="t_address"/>
+		<result property="tBookmark" column="t_bookmark"/>
+		<result property="tHits" column="t_hits"/>
+	</resultMap>
+	
+	<select id="sortBoardList" resultMap="sortResult">
+		<choose>
+			<when test='sortInput.equals("북마크 인기순")'>
+				<!--확인용 SELECT b.t_no, t_header, t_title, t_pic, t_address,
+					 t_bookmark, t_hits, m.t_no, t_bookmark_sum -->
+				SELECT b.t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits
+				FROM together_board AS b 
+				LEFT JOIN (SELECT t_no, COUNT(t_no) as t_bookmark_sum
+						FROM together_bookmarks 
+						GROUP BY t_no
+						ORDER BY COUNT(t_no) DESC) AS m
+				USING(t_no)
+				WHERE t_header = #{tHeader}
+				ORDER BY t_bookmark_sum DESC limit 0,6;
+			</when>
+			<otherwise>
+				SELECT t_no, t_header, t_title, t_pic, t_address, t_bookmark, t_hits 
+				FROM together_board 
+				WHERE t_header = #{tHeader}
+				<choose>
+					<when test='sortInput.equals("조회수순")'>
+						ORDER BY t_hits DESC limit 0,6
+					</when>
+					<when test="sortInput.equals('남은인원 많은순')">
+						<!-- 확인용 SELECT t_no, t_header, t_title, t_pic, t_address, t_bookmark,
+							 t_hits,t_join_max,t_join_now, (t_join_max - t_join_now) FROM together_board -->
+						ORDER BY (t_join_max - t_join_now) DESC limit 0,6
+					</when>
+					<when test="sortInput.equals('최대인원 많은순')">
+						ORDER BY t_join_max DESC limit 0,6
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+	
 </mapper>

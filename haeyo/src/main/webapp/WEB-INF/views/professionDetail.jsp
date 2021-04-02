@@ -34,7 +34,6 @@ let proObj = {
 		pCategory: "${proDetail.pCategory}"
 }
 
-
 window.onload = function(){
 	ajaxTest(proObj);
 }
@@ -66,7 +65,7 @@ function ajaxTest(proObj){
 	});
 }
 function labelAdd(array){
-	const rsv = "rsv";
+	const txt = "txt";
 	const sub_category = document.getElementById("sub_category");
     for(i=0; i< array.length; i++){
         const li = document.createElement("li");
@@ -76,7 +75,7 @@ function labelAdd(array){
         label.innerText = document.getElementById(array[i]).innerText;
         label.addEventListener("click", select);
         input.type = "checkbox";
-        input.name = rsv.concat(array[i].substring(1));
+        input.name = txt.concat(array[i].substring(1));
         input.value = document.getElementById(array[i]).innerText;
         input.id = array[i];
         li.appendChild(input);
@@ -112,7 +111,7 @@ function select() {
                     </div>
                     <div id="modal-body">
                         <form action="application.do" method="GET">
-                        	<input type="hidden" name="pNO" value="${proDetail.pNo}"/>
+                        	<input type="hidden" name="pNo" value="${proDetail.pNo}"/>
                         	<input type="hidden" name="pCategory" value="${proDetail.pCategory}"/>
                             <div id="sub_cateWrap">
                                 <ul id="sub_category" class="clearfix">
@@ -220,7 +219,7 @@ function select() {
 			</div>
 			<div id="con03">
 				<h3>일정</h3>
-				<button>
+				<button onclick="location.href='viewproCalendar.do?pNo=${proDetail.pNo}'">
 					<i class="far fa-calendar-alt"></i> 전문가 일정 확인하기<i class="fas fa-arrow-right"></i>
 				</button>
 				<!-- <div id="schedual">일정</div>-->

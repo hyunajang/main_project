@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.haeyo.biz.user.UserVO"%>
+<%@ page import="com.haeyo.biz.user.UserVO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,15 +16,11 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-<link href="resources/css/join.css?v=<%=System.currentTimeMillis()%>"
-	rel="stylesheet">
+<link href="resources/css/join.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
 <!-- <link href="css/main.css" rel="stylesheet"> -->
-<link href="resources/css/common.css?v=<%=System.currentTimeMillis()%>"
-	rel="stylesheet">
-<script defer
-	src="resources/js/common.js?v=<%=System.currentTimeMillis()%>"></script>
-<script defer
-	src="resources/js/join_addr.js?v=<%=System.currentTimeMillis()%>"></script>
+<link href="resources/css/common.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
+<script defer src="resources/js/common.js?v=<%=System.currentTimeMillis()%>"></script>
+<script defer src="resources/js/join_addr.js?v=<%=System.currentTimeMillis()%>"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script
@@ -32,10 +28,10 @@
 </head>
 
 <body>
-	<%
-		session = request.getSession();
-	UserVO user = (UserVO) session.getAttribute("user");
-	%>
+<%
+	session = request.getSession();
+	UserVO user = (UserVO)session.getAttribute("user");
+%>
 	<wrap> <!--modalStart-->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -105,14 +101,8 @@
 		<form action="insertUser.do" method="post"
 			enctype="multipart/form-data">
 			<fieldset>
-				<div id="userpic-wrapper">
-					<div id="thumb-img" class="pro-mypage-thumb">
-						<img src="">
-					</div>
-					<label class="click-icon" for="user-thumb"><i
-						class="fas fa-camera"></i></label> <input type="file" name="file"
-						id="user-thumb" class="upload-box upload-plus" accept="image/*"
-						onchange="thumbnail(event)">
+				<div id="profile_d">
+					<a href=""><span><i class="fas fa-camera"></i></span></a>
 				</div>
 				<div class="form-group">
 					<label for="uName">이 름</label> <input type="text"

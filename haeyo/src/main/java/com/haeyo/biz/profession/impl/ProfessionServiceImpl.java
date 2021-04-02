@@ -5,18 +5,24 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.haeyo.biz.profession.ProfessionBookmarksVO;
 import com.haeyo.biz.profession.ProfessionListVO;
 import com.haeyo.biz.profession.ProfessionService;
 import com.haeyo.biz.profession.ProfessionSubVO;
+import com.haeyo.biz.profession.ProfessionVO;
+import com.haeyo.biz.reservation.ReservationVO;
 
 @Service("ProfessionService")
 public class ProfessionServiceImpl implements ProfessionService {
+	private static final Logger logger = LoggerFactory.getLogger(ProfessionServiceImpl.class);
 	
 	@Autowired
 	HttpSession session;
@@ -62,19 +68,6 @@ public class ProfessionServiceImpl implements ProfessionService {
 		return professionDAO.CleaningCate(vo);
 	}
 	
-	@Override
-	public ProfessionSubVO getSubCateTest(Map<String, Object> map) {
-		System.out.println("서브카테고리 가져오기");
-		if(map.get("pCategory").equals("수리")) {
-			System.out.println("수리");
-//			ProfessionSubVO proRepair = professionDAO.RepairCate(vo);
-			return professionDAO.RepairCateTest(map);
-		}else if(map.get("pCategory").equals("이사")) {
-			return professionDAO.MovingCateTest(map);
-		}
-		return professionDAO.CleaningCateTest(map);
-	}
-	
 	@GetMapping("/test")
 	@ResponseBody
 	public String test(@RequestBody Map<String, Object> param) {
@@ -82,5 +75,36 @@ public class ProfessionServiceImpl implements ProfessionService {
 	return pNo;
 	}
 
+	//전문가 select ajax테스트
+	@Override
+	public List<ProfessionListVO> getList(ProfessionListVO vo) {
+		logger.info("전문가 ajax리스트: " + vo);
+		return professionDAO.getLList(vo);
+	}
 
+	//북마크
+	@Override
+	public int checkBook(ProfessionBookmarksVO vo, HttpSession session) {
+		if(session.getAttribute("user") != null){
+			logger.info("checkBookService 타기 : " + vo);
+			logger.info("professionDAO.selectBook(vo) : " + professionDAO.selectBook(vo));
+			if(professionDAO.selectBook(vo) == null) {
+				logger.info("professionDAO.selectBook(vo) : " + professionDAO.selectBook(vo));
+				professionDAO.insertBook(vo);
+				return 0;
+			}else {
+				professionDAO.deleteBook(vo);
+				System.out.println(professionDAO.deleteBook(vo));
+				return 1;
+			}
+		}else {
+			return -1;
+		}
+	}
+
+	//전문가 예약일정 셀렉트
+	@Override
+	public List<ReservationVO> getproReservation(ProfessionVO VO) {
+		return professionDAO.selectProReservation(VO);
+	}
 }

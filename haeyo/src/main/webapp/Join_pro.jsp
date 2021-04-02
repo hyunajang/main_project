@@ -17,10 +17,10 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-<link href="resources/css/join_pro.css" rel="stylesheet">
+<link href="resources/css/join_pro.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
 <!-- <link href="css/main.css" rel="stylesheet"> -->
-<link href="resources/css/common.css" rel="stylesheet">
-<script defer src="resources/js/common.js"></script>
+<link href="resources/css/common.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
+<script defer src="resources/js/common.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 
 <body>

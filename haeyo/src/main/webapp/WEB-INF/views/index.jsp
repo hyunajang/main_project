@@ -82,9 +82,9 @@
 							<div id="profiteTxt">
 								<span>반갑습니다! </span>${user.uNick}님</div>
 							<ul class="profileMenu">
-								<li><i class="fas fa-user menuico"></i>마이페이지</li>
+								<li><a href="mypageinfo.do"><i class="fas fa-user menuico"></i>마이페이지</a></li>
 								<li><i class="fas fa-sign-out-alt menuico"></i>로그아웃</li>
-								<li><i class="fas fa-exchange-alt menuico"></i>전문가로 전환</li>
+								<li><i class="fas fa-exchange-alt menuico"></i><a href="getProfile.do">전문가로 전환></a></li>
 							</ul>
 						</div>
 					</c:if>

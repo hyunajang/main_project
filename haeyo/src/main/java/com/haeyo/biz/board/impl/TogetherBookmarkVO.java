@@ -16,5 +16,10 @@ public class TogetherBookmarkVO {
 	public void settNo(int tNo) {
 		this.tNo = tNo;
 	}
+	@Override
+	public String toString() {
+		return "TogetherBookmarkVO [uNo=" + uNo + ", tNo=" + tNo + "]";
+	}
+
 	
 }

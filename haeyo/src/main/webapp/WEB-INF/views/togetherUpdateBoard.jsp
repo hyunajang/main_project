@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="image/icon.ico" rel="shortcut icon" type="image/x-icon">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
@@ -14,8 +15,8 @@
 	<link href="resources/css/main.css" rel="stylesheet">
     <link href="resources/css/common.css" rel="stylesheet">
     <script defer src="resources/js/common.js"></script>
-	<link href="resources/css/update.css" rel="stylesheet">
-	<meta charset="UTF-8">
+    <script src="resources/js/togetherUpdate.js?v=<%=System.currentTimeMillis()%>"></script>
+	<link href="resources/css/togetherUpdate.css?v=<%=System.currentTimeMillis()%>" rel="stylesheet">
 <title>함께해요 글 수정 페이지</title>
 </head>
 <body>
@@ -62,7 +63,7 @@
 						<select class="form-control" id="tHeader" name="tHeader">
 							<option value="함께먹어요">함께 먹어요</option>
 							<option value="함께출퇴근해요">함께 출퇴근해요</option>
-							<option value="함께 나눠요">함께 나눠요</option>
+							<option value="함께나눠요">함께 나눠요</option>
 						</select>
 					</div>	
 					<div class="form-group">
@@ -95,8 +96,9 @@
 				</div>
 				<div class="form-group">
 					<label for="exampleInputFile">사진 첨부</label>
-					<input type="file" class="form-control-file" id="uploadFile" name="uploadFile" value="${Board.tPic}">
+					<input type="file" class="form-control-file" id="uploadFile" name="uploadFile" onchange="loadFile(event);">
 				</div>
+				<img id="image_preview" src="">
 				<input type="hidden" id="tNo" name="tNo" value="${Board.tNo}">
 				<div id="updatebutton">
 					<button type="submit" class="btn btn-primary">수정</button>

@@ -11,7 +11,7 @@ ul,ol,li {list-style: none;}
 strong,em,address {font-weight:normal; font-style:normal;}
 table {border-collapse:collapse;}
 
-.clearfix:after { /*ë‚ ì•„ê°ˆê²½ìš° ë†’ì´ ì§€ì •*/
+.clearfix:after { /*³¯¾Æ°¥°æ¿ì ³ôÀÌ ÁöÁ¤*/
     content:"";
     display:block;
     clear:both;
@@ -118,7 +118,7 @@ legend {
     margin-right: 10px;
 	width: 40px;
 }
-/*----------- ë¡œê·¸ì¸ ì‹¤íŒ¨ ì‹œ ê²½ê³ ê¸€ -----------*/
+/*----------- ·Î±×ÀÎ ½ÇÆĞ ½Ã °æ°í±Û -----------*/
 .login_warn {
 	margin-top: 30px;
 	text-align: center;

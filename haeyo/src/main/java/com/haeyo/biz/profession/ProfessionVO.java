@@ -15,37 +15,12 @@ public class ProfessionVO {
 	
 	private float score;
 	private int count;
-	
 
 	ProfessionsCleaningVO professionsCleaningVO;
 	ProfessionsRepairVO professionsRepairVO;
 	ProfessionsMovingVO professionsMovingVO;
+	ProfessionBookmarksVO professionBookmarksVO;
 	
-
-	public float getScore() {
-		return score;
-	}
-
-	public void setScore(float score) {
-		this.score = score;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public int getpGender() {
-		return pGender;
-	}
-
-	public void setpGender(int pGender) {
-		this.pGender = pGender;
-	}
-
 	public int getpNo() {
 		return pNo;
 	}
@@ -60,6 +35,14 @@ public class ProfessionVO {
 
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
+	}
+
+	public int getpGender() {
+		return pGender;
+	}
+
+	public void setpGender(int pGender) {
+		this.pGender = pGender;
 	}
 
 	public String getpAddress() {
@@ -124,6 +107,55 @@ public class ProfessionVO {
 
 	public void setpCategory(String pCategory) {
 		this.pCategory = pCategory;
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public ProfessionsCleaningVO getProfessionsCleaningVO() {
+		return professionsCleaningVO;
+	}
+
+	public void setProfessionsCleaningVO(ProfessionsCleaningVO professionsCleaningVO) {
+		this.professionsCleaningVO = professionsCleaningVO;
+	}
+
+	public ProfessionsRepairVO getProfessionsRepairVO() {
+		return professionsRepairVO;
+	}
+
+	public void setProfessionsRepairVO(ProfessionsRepairVO professionsRepairVO) {
+		this.professionsRepairVO = professionsRepairVO;
+	}
+
+	public ProfessionsMovingVO getProfessionsMovingVO() {
+		return professionsMovingVO;
+	}
+
+	public void setProfessionsMovingVO(ProfessionsMovingVO professionsMovingVO) {
+		this.professionsMovingVO = professionsMovingVO;
+	}
+
+	public ProfessionBookmarksVO getProfessionBookmarksVO() {
+		return professionBookmarksVO;
+	}
+
+	public void setProfessionBookmarksVO(ProfessionBookmarksVO professionBookmarksVO) {
+		this.professionBookmarksVO = professionBookmarksVO;
 	}
 
 	@Override
